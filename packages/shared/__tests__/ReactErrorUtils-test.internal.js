@@ -13,8 +13,10 @@ let ReactErrorUtils;
 
 describe('ReactErrorUtils', () => {
   beforeEach(() => {
-    // TODO: can we express this test with only public API?
-    ReactErrorUtils = require('shared/ReactErrorUtils').default;
+    jest.withResetModules(() => {
+      // TODO: can we express this test with only public API?
+      ReactErrorUtils = require('shared/ReactErrorUtils').default;
+    });
   });
 
   it(`it should rethrow caught errors`, () => {
@@ -128,9 +130,15 @@ describe('ReactErrorUtils', () => {
   });
 
   it('handles nested errors in separate renderers', () => {
-    const ReactErrorUtils1 = require('shared/ReactErrorUtils').default;
-    jest.resetModules();
-    const ReactErrorUtils2 = require('shared/ReactErrorUtils').default;
+    let ReactErrorUtils1;
+    let ReactErrorUtils2;
+    
+    jest.withResetModules(() => {
+      ReactErrorUtils1 = require('shared/ReactErrorUtils').default;
+    });
+    jest.withResetModules(() => {
+      ReactErrorUtils2 = require('shared/ReactErrorUtils').default;
+    });
     expect(ReactErrorUtils1).not.toEqual(ReactErrorUtils2);
 
     let ops = [];
@@ -176,21 +184,22 @@ describe('ReactErrorUtils', () => {
 
   it(`can be shimmed`, () => {
     const ops = [];
-    jest.resetModules();
-    jest.mock(
-      'shared/invokeGuardedCallback',
-      () =>
-        function invokeGuardedCallback(name, func, context, a) {
-          ops.push(a);
-          try {
-            func.call(context, a);
-          } catch (error) {
-            this._hasCaughtError = true;
-            this._caughtError = error;
-          }
-        },
-    );
-    ReactErrorUtils = require('shared/ReactErrorUtils').default;
+    jest.withResetModules(() => {
+      jest.mock(
+        'shared/invokeGuardedCallback',
+        () =>
+          function invokeGuardedCallback(name, func, context, a) {
+            ops.push(a);
+            try {
+              func.call(context, a);
+            } catch (error) {
+              this._hasCaughtError = true;
+              this._caughtError = error;
+            }
+          },
+      );
+      ReactErrorUtils = require('shared/ReactErrorUtils').default;
+    });
 
     try {
       const err = new Error('foo');

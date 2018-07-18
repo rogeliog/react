@@ -50,9 +50,9 @@ describe('Profiler', () => {
         flagEnabled ? 'enabled' : 'disabled'
       }`, () => {
         beforeEach(() => {
-          jest.resetModules();
-
-          loadModules({enableProfilerTimer: flagEnabled});
+          jest.withResetModules(() => {
+            loadModules({enableProfilerTimer: flagEnabled});
+          });
         });
 
         // This will throw in production too,
@@ -138,10 +138,10 @@ describe('Profiler', () => {
     };
 
     beforeEach(() => {
-      jest.resetModules();
-
-      loadModules();
-      mockNowForTests();
+      jest.withResetModules(() => {
+        loadModules();
+        mockNowForTests();
+      });
 
       AdvanceTime = class extends React.Component {
         static defaultProps = {
@@ -852,12 +852,12 @@ describe('Profiler', () => {
           flagEnabled ? 'enabled' : 'disabled'
         }`, () => {
           beforeEach(() => {
-            jest.resetModules();
-
-            loadModules({
-              replayFailedUnitOfWorkWithInvokeGuardedCallback: flagEnabled,
+            jest.withResetModules(() => {
+              loadModules({
+                replayFailedUnitOfWorkWithInvokeGuardedCallback: flagEnabled,
+              });
+              mockNowForTests();
             });
-            mockNowForTests();
           });
 
           it('should accumulate actual time after an error handled by componentDidCatch()', () => {
@@ -979,11 +979,11 @@ describe('Profiler', () => {
           });
 
           it('should reset the fiber stack correct after a "complete" phase error', () => {
-            jest.resetModules();
-
-            loadModules({
-              useNoopRenderer: true,
-              replayFailedUnitOfWorkWithInvokeGuardedCallback: flagEnabled,
+            jest.withResetModules(() => {
+              loadModules({
+                useNoopRenderer: true,
+                replayFailedUnitOfWorkWithInvokeGuardedCallback: flagEnabled,
+              });
             });
 
             // Simulate a renderer error during the "complete" phase.
@@ -1050,9 +1050,10 @@ describe('Profiler', () => {
   });
 
   it('should handle interleaved async yields and batched commits', () => {
-    jest.resetModules();
-    mockDevToolsForTest();
-    loadModules({useNoopRenderer: true});
+    jest.withResetModules(() => {
+      mockDevToolsForTest();
+      loadModules({useNoopRenderer: true});
+    });
 
     const Child = ({duration, id}) => {
       ReactNoop.advanceTime(duration);

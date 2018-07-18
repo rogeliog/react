@@ -24,8 +24,10 @@ describe('reactProdInvariant', () => {
       global.Error = globalErrorMock.OriginalError;
       expect(typeof global.Error).toBe('function');
     }
-    jest.resetModules();
-    reactProdInvariant = require('shared/reactProdInvariant').default;
+
+    jest.withResetModules(() => {
+      reactProdInvariant = require('shared/reactProdInvariant').default;
+    });
   });
 
   afterEach(() => {

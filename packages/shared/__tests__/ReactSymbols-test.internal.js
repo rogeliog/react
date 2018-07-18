@@ -9,8 +9,6 @@
 'use strict';
 
 describe('ReactSymbols', () => {
-  beforeEach(() => jest.resetModules());
-
   const expectToBeUnique = keyValuePairs => {
     const map = new Map();
     keyValuePairs.forEach(([key, value]) => {
@@ -24,14 +22,18 @@ describe('ReactSymbols', () => {
   };
 
   it('Symbol values should be unique', () => {
-    expectToBeUnique(Object.entries(require('shared/ReactSymbols')));
+    jest.withResetModules(() => {
+      expectToBeUnique(Object.entries(require('shared/ReactSymbols')));
+    });
   });
 
   it('numeric values should be unique', () => {
     const originalSymbolFor = global.Symbol.for;
     global.Symbol.for = null;
     try {
-      expectToBeUnique(Object.entries(require('shared/ReactSymbols')));
+      jest.withResetModules(() => {
+        expectToBeUnique(Object.entries(require('shared/ReactSymbols')));
+      });
     } finally {
       global.Symbol.for = originalSymbolFor;
     }

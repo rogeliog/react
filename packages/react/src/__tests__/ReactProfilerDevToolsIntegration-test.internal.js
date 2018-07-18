@@ -37,14 +37,14 @@ describe('ReactProfiler DevTools integration', () => {
       supportsFiber: true,
     };
 
-    jest.resetModules();
+    jest.withResetModules(() => {
+      ReactFeatureFlags = require('shared/ReactFeatureFlags');
+      ReactFeatureFlags.enableProfilerTimer = true;
+      React = require('react');
+      ReactTestRenderer = require('react-test-renderer');
 
-    ReactFeatureFlags = require('shared/ReactFeatureFlags');
-    ReactFeatureFlags.enableProfilerTimer = true;
-    React = require('react');
-    ReactTestRenderer = require('react-test-renderer');
-
-    mockNowForTests();
+      mockNowForTests();
+    });
 
     AdvanceTime = class extends React.Component {
       static defaultProps = {

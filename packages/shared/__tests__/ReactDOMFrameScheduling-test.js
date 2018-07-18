@@ -14,11 +14,12 @@ describe('ReactDOMFrameScheduling', () => {
     const previousRAF = global.requestAnimationFrame;
     try {
       global.requestAnimationFrame = undefined;
-      jest.resetModules();
-      expect(() => require('react-dom')).toWarnDev(
-        "This browser doesn't support requestAnimationFrame.",
-        {withoutStack: true},
-      );
+      jest.withResetModules(() => {
+        expect(() => require('react-dom')).toWarnDev(
+          "This browser doesn't support requestAnimationFrame.",
+          {withoutStack: true},
+        );
+      });
     } finally {
       global.requestAnimationFrame = previousRAF;
     }
@@ -35,10 +36,11 @@ describe('ReactDOMFrameScheduling', () => {
       global.requestIdleCallback = undefined;
       // Simulate the Node environment:
       delete global.window;
-      jest.resetModules();
-      expect(() => {
-        require('react-dom');
-      }).not.toThrow();
+      jest.withResetModules(() => {
+        expect(() => {
+          require('react-dom');
+        }).not.toThrow();
+      });
     } finally {
       global.requestAnimationFrame = previousRAF;
       global.requestIdleCallback = previousRIC;

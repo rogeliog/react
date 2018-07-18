@@ -21,12 +21,12 @@ describe('ReactJSXElementValidator', () => {
   let RequiredPropComponent;
 
   beforeEach(() => {
-    jest.resetModules();
-
-    PropTypes = require('prop-types');
-    React = require('react');
-    ReactDOM = require('react-dom');
-    ReactTestUtils = require('react-dom/test-utils');
+    jest.withResetModules(() => {
+      PropTypes = require('prop-types');
+      React = require('react');
+      ReactDOM = require('react-dom');
+      ReactTestUtils = require('react-dom/test-utils');
+    });
 
     Component = class extends React.Component {
       render() {

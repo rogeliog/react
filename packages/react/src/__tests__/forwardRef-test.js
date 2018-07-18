@@ -15,10 +15,11 @@ describe('forwardRef', () => {
   let ReactNoop;
 
   beforeEach(() => {
-    jest.resetModules();
-    PropTypes = require('prop-types');
-    React = require('react');
-    ReactNoop = require('react-noop-renderer');
+    jest.withResetModules(() => {
+      PropTypes = require('prop-types');
+      React = require('react');
+      ReactNoop = require('react-noop-renderer');
+    });
   });
 
   it('should update refs when switching between children', () => {

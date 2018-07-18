@@ -15,12 +15,13 @@ describe('forwardRef', () => {
   let ReactNoop;
 
   beforeEach(() => {
-    jest.resetModules();
-    ReactFeatureFlags = require('shared/ReactFeatureFlags');
-    ReactFeatureFlags.debugRenderPhaseSideEffectsForStrictMode = false;
-    ReactFeatureFlags.replayFailedUnitOfWorkWithInvokeGuardedCallback = false;
-    React = require('react');
-    ReactNoop = require('react-noop-renderer');
+    jest.withResetModules(() => {
+      ReactFeatureFlags = require('shared/ReactFeatureFlags');
+      ReactFeatureFlags.debugRenderPhaseSideEffectsForStrictMode = false;
+      ReactFeatureFlags.replayFailedUnitOfWorkWithInvokeGuardedCallback = false;
+      React = require('react');
+      ReactNoop = require('react-noop-renderer');
+    });
   });
 
   it('should work without a ref to be forwarded', () => {

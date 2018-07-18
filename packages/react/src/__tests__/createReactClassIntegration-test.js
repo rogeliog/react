@@ -17,16 +17,17 @@ let createReactClass;
 
 describe('create-react-class-integration', () => {
   beforeEach(() => {
-    jest.resetModules();
-    PropTypes = require('prop-types');
-    React = require('react');
-    ReactDOM = require('react-dom');
-    ReactTestUtils = require('react-dom/test-utils');
-    createReactClass = require('create-react-class/factory')(
-      React.Component,
-      React.isValidElement,
-      new React.Component().updater,
-    );
+    jest.withResetModules(() => {
+      PropTypes = require('prop-types');
+      React = require('react');
+      ReactDOM = require('react-dom');
+      ReactTestUtils = require('react-dom/test-utils');
+      createReactClass = require('create-react-class/factory')(
+        React.Component,
+        React.isValidElement,
+        new React.Component().updater,
+      );
+    });
   });
 
   it('should throw when `render` is not specified', () => {

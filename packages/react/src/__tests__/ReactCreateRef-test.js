@@ -14,10 +14,10 @@ let ReactTestRenderer;
 
 describe('ReactCreateRef', () => {
   beforeEach(() => {
-    jest.resetModules();
-
-    React = require('react');
-    ReactTestRenderer = require('react-test-renderer');
+    jest.withResetModules(() => {
+      React = require('react');
+      ReactTestRenderer = require('react-test-renderer');
+    });
   });
 
   it('should warn in dev if an invalid ref object is provided', () => {

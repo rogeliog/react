@@ -17,11 +17,12 @@ let PropTypes;
 describe('ReactStrictMode', () => {
   describe('debugRenderPhaseSideEffects', () => {
     beforeEach(() => {
-      jest.resetModules();
-      ReactFeatureFlags = require('shared/ReactFeatureFlags');
-      ReactFeatureFlags.debugRenderPhaseSideEffects = true;
-      React = require('react');
-      ReactTestRenderer = require('react-test-renderer');
+      jest.withResetModules(() => {
+        ReactFeatureFlags = require('shared/ReactFeatureFlags');
+        ReactFeatureFlags.debugRenderPhaseSideEffects = true;
+        React = require('react');
+        ReactTestRenderer = require('react-test-renderer');
+      });
     });
 
     it('should invoke precommit lifecycle methods twice', () => {
@@ -149,11 +150,12 @@ describe('ReactStrictMode', () => {
   [true, false].forEach(debugRenderPhaseSideEffectsForStrictMode => {
     describe(`StrictMode (${debugRenderPhaseSideEffectsForStrictMode})`, () => {
       beforeEach(() => {
-        jest.resetModules();
-        ReactFeatureFlags = require('shared/ReactFeatureFlags');
-        ReactFeatureFlags.debugRenderPhaseSideEffectsForStrictMode = debugRenderPhaseSideEffectsForStrictMode;
-        React = require('react');
-        ReactTestRenderer = require('react-test-renderer');
+        jest.withResetModules(() => {
+          ReactFeatureFlags = require('shared/ReactFeatureFlags');
+          ReactFeatureFlags.debugRenderPhaseSideEffectsForStrictMode = debugRenderPhaseSideEffectsForStrictMode;
+          React = require('react');
+          ReactTestRenderer = require('react-test-renderer');
+        });
       });
 
       it('should invoke precommit lifecycle methods twice in DEV', () => {
@@ -300,10 +302,10 @@ describe('ReactStrictMode', () => {
 
   describe('async subtree', () => {
     beforeEach(() => {
-      jest.resetModules();
-
-      React = require('react');
-      ReactTestRenderer = require('react-test-renderer');
+      jest.withResetModules(() => {
+        React = require('react');
+        ReactTestRenderer = require('react-test-renderer');
+      });
     });
 
     it('should warn about unsafe legacy lifecycle methods within the tree', () => {
@@ -611,9 +613,10 @@ describe('ReactStrictMode', () => {
 
   describe('symbol checks', () => {
     beforeEach(() => {
-      jest.resetModules();
-      React = require('react');
-      ReactTestRenderer = require('react-test-renderer');
+      jest.withResetModules(() => {
+        React = require('react');
+        ReactTestRenderer = require('react-test-renderer');
+      });
     });
 
     it('should switch from StrictMode to a Fragment and reset state', () => {
@@ -724,9 +727,10 @@ describe('ReactStrictMode', () => {
 
   describe('string refs', () => {
     beforeEach(() => {
-      jest.resetModules();
-      React = require('react');
-      ReactTestRenderer = require('react-test-renderer');
+      jest.withResetModules(() => {
+        React = require('react');
+        ReactTestRenderer = require('react-test-renderer');
+      });
     });
 
     it('should warn within a strict tree', () => {
@@ -809,12 +813,13 @@ describe('ReactStrictMode', () => {
 
   describe('context legacy', () => {
     beforeEach(() => {
-      jest.resetModules();
-      React = require('react');
-      ReactTestRenderer = require('react-test-renderer');
-      PropTypes = require('prop-types');
-      ReactFeatureFlags = require('shared/ReactFeatureFlags');
-      ReactFeatureFlags.warnAboutLegacyContextAPI = true;
+      jest.withResetModules(() => {
+        React = require('react');
+        ReactTestRenderer = require('react-test-renderer');
+        PropTypes = require('prop-types');
+        ReactFeatureFlags = require('shared/ReactFeatureFlags');
+        ReactFeatureFlags.warnAboutLegacyContextAPI = true;
+      });
     });
 
     it('should warn if the legacy context API have been used in strict mode', () => {

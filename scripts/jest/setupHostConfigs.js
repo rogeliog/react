@@ -47,7 +47,7 @@ inlinedHostConfigs.forEach(rendererInfo => {
       throw new Error(
         `Could not import the "${rendererInfo.shortName}" renderer ` +
           `in this suite because another renderer has already been ` +
-          `loaded earlier. Call jest.resetModules() before importing any ` +
+          `loaded earlier. Wrap them in jest.withResetModules() before importing any ` +
           `of the following entry points:\n\n` +
           rendererInfo.entryPoints.map(entry => `  * ${entry}`)
       );

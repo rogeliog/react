@@ -17,16 +17,16 @@ describe('ReactJSXElement', () => {
   let Component;
 
   beforeEach(() => {
-    jest.resetModules();
-
-    React = require('react');
-    ReactDOM = require('react-dom');
-    ReactTestUtils = require('react-dom/test-utils');
-    Component = class extends React.Component {
-      render() {
-        return <div />;
-      }
-    };
+    jest.withResetModules(() => {
+      React = require('react');
+      ReactDOM = require('react-dom');
+      ReactTestUtils = require('react-dom/test-utils');
+      Component = class extends React.Component {
+        render() {
+          return <div />;
+        }
+      };
+    });
   });
 
   it('returns a complete element according to spec', () => {

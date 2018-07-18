@@ -22,19 +22,19 @@ describe('ReactElementValidator', () => {
   let ComponentClass;
 
   beforeEach(() => {
-    jest.resetModules();
-
-    PropTypes = require('prop-types');
-    ReactFeatureFlags = require('shared/ReactFeatureFlags');
-    ReactFeatureFlags.replayFailedUnitOfWorkWithInvokeGuardedCallback = false;
-    React = require('react');
-    ReactDOM = require('react-dom');
-    ReactTestUtils = require('react-dom/test-utils');
-    ComponentClass = class extends React.Component {
-      render() {
-        return React.createElement('div');
-      }
-    };
+    jest.withResetModules(() => {
+      PropTypes = require('prop-types');
+      ReactFeatureFlags = require('shared/ReactFeatureFlags');
+      ReactFeatureFlags.replayFailedUnitOfWorkWithInvokeGuardedCallback = false;
+      React = require('react');
+      ReactDOM = require('react-dom');
+      ReactTestUtils = require('react-dom/test-utils');
+      ComponentClass = class extends React.Component {
+        render() {
+          return React.createElement('div');
+        }
+      };
+    });
   });
 
   it('warns for keys for arrays of elements in rest args', () => {

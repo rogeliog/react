@@ -13,8 +13,9 @@ let SimpleCacheProvider;
 
 describe('SimpleCacheProvider', () => {
   beforeEach(() => {
-    jest.resetModules();
-    SimpleCacheProvider = require('simple-cache-provider');
+    jest.withResetModules(() => {
+      SimpleCacheProvider = require('simple-cache-provider');
+    });
   });
 
   it('throws a promise if the requested value is not in the cache', async () => {
