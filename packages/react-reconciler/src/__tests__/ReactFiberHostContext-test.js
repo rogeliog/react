@@ -15,9 +15,10 @@ let ReactFiberReconciler;
 
 describe('ReactFiberHostContext', () => {
   beforeEach(() => {
-    jest.resetModules();
-    React = require('react');
-    ReactFiberReconciler = require('react-reconciler');
+    jest.withResetModules(() => {
+      React = require('react');
+      ReactFiberReconciler = require('react-reconciler');
+    });
   });
 
   it('works with null host context', () => {

@@ -21,15 +21,15 @@ function normalizeCodeLocInfo(str) {
 
 describe('ReactNativeError', () => {
   beforeEach(() => {
-    jest.resetModules();
-
-    React = require('react');
-    ReactNative = require('react-native-renderer');
-    createReactNativeComponentClass = require('ReactNativeViewConfigRegistry')
-      .register;
-    computeComponentStackForErrorReporting =
-      ReactNative.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED
-        .computeComponentStackForErrorReporting;
+    jest.withResetModules(() => {
+      React = require('react');
+      ReactNative = require('react-native-renderer');
+      createReactNativeComponentClass = require('ReactNativeViewConfigRegistry')
+        .register;
+      computeComponentStackForErrorReporting =
+        ReactNative.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED
+          .computeComponentStackForErrorReporting;
+    });
   });
 
   it('should be able to extract a component stack from a native view', () => {

@@ -17,17 +17,20 @@ let createReactNativeComponentClass;
 
 describe('ReactFabric', () => {
   beforeEach(() => {
-    jest.resetModules();
-    ReactNative = require('react-native-renderer');
-    jest.resetModules();
-    jest.mock('shared/ReactFeatureFlags', () =>
-      require('shared/forks/ReactFeatureFlags.native-fabric-oss'),
-    );
+    jest.withResetModules(() => {
+      ReactNative = require('react-native-renderer');
+    });
+    
+    jest.withResetModules(() => {
+      jest.mock('shared/ReactFeatureFlags', () =>
+        require('shared/forks/ReactFeatureFlags.native-fabric-oss'),
+      );
 
-    React = require('react');
-    ReactFabric = require('react-native-renderer/fabric');
-    createReactNativeComponentClass = require('ReactNativeViewConfigRegistry')
-      .register;
+      React = require('react');
+      ReactFabric = require('react-native-renderer/fabric');
+      createReactNativeComponentClass = require('ReactNativeViewConfigRegistry')
+        .register;
+    });
   });
 
   it('find Fabric nodes with the RN renderer', () => {

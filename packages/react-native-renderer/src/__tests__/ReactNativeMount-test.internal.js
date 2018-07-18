@@ -17,13 +17,13 @@ let UIManager;
 
 describe('ReactNative', () => {
   beforeEach(() => {
-    jest.resetModules();
-
-    React = require('react');
-    ReactNative = require('react-native-renderer');
-    UIManager = require('UIManager');
-    createReactNativeComponentClass = require('ReactNativeViewConfigRegistry')
-      .register;
+    jest.withResetModules(() => {
+      React = require('react');
+      ReactNative = require('react-native-renderer');
+      UIManager = require('UIManager');
+      createReactNativeComponentClass = require('ReactNativeViewConfigRegistry')
+        .register;
+    });
   });
 
   it('should be able to create and render a native component', () => {

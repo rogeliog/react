@@ -17,12 +17,13 @@ let PropTypes;
 
 describe('ReactIncremental', () => {
   beforeEach(() => {
-    jest.resetModules();
-    ReactFeatureFlags = require('shared/ReactFeatureFlags');
-    ReactFeatureFlags.debugRenderPhaseSideEffectsForStrictMode = false;
-    React = require('react');
-    ReactNoop = require('react-noop-renderer');
-    PropTypes = require('prop-types');
+    jest.withResetModules(() => {
+      ReactFeatureFlags = require('shared/ReactFeatureFlags');
+      ReactFeatureFlags.debugRenderPhaseSideEffectsForStrictMode = false;
+      React = require('react');
+      ReactNoop = require('react-noop-renderer');
+      PropTypes = require('prop-types');
+    });
   });
 
   it('should render a simple component', () => {
@@ -2849,7 +2850,6 @@ describe('ReactIncremental', () => {
 
     // First, verify that this code path normally receives Fibers as keys,
     // and that they're not extensible.
-    jest.resetModules();
     let receivedNonExtensibleObjects;
     // eslint-disable-next-line no-extend-native
     Map.prototype.set = function(key) {
@@ -2860,8 +2860,10 @@ describe('ReactIncremental', () => {
       }
       return realMapSet.apply(this, arguments);
     };
-    React = require('react');
-    ReactNoop = require('react-noop-renderer');
+    jest.withResetModules(() => {
+      React = require('react');
+      ReactNoop = require('react-noop-renderer');
+    });
     try {
       receivedNonExtensibleObjects = false;
       triggerCodePathThatUsesFibersAsMapKeys();
@@ -2877,7 +2879,6 @@ describe('ReactIncremental', () => {
 
     // Next, verify that a Map polyfill that "writes" to keys
     // doesn't cause a failure.
-    jest.resetModules();
     // eslint-disable-next-line no-extend-native
     Map.prototype.set = function(key, value) {
       if (typeof key === 'object' && key !== null) {
@@ -2887,8 +2888,10 @@ describe('ReactIncremental', () => {
       }
       return realMapSet.apply(this, arguments);
     };
-    React = require('react');
-    ReactNoop = require('react-noop-renderer');
+    jest.withResetModules(() => {
+      React = require('react');
+      ReactNoop = require('react-noop-renderer');
+    });
     try {
       triggerCodePathThatUsesFibersAsMapKeys();
     } finally {

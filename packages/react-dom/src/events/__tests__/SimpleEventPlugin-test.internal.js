@@ -59,9 +59,11 @@ describe('SimpleEventPlugin', function() {
         postMessageCallback(postMessageEvent);
       }
     };
-    jest.resetModules();
-    React = require('react');
-    ReactDOM = require('react-dom');
+
+    jest.withResetModules(() => {
+      React = require('react');
+      ReactDOM = require('react-dom');
+    });
 
     onClick = jest.fn();
   });
@@ -254,10 +256,11 @@ describe('SimpleEventPlugin', function() {
 
   describe('interactive events, in async mode', () => {
     beforeEach(() => {
-      jest.resetModules();
-      ReactFeatureFlags = require('shared/ReactFeatureFlags');
-      ReactFeatureFlags.debugRenderPhaseSideEffectsForStrictMode = false;
-      ReactDOM = require('react-dom');
+      jest.withResetModules(() => {
+        ReactFeatureFlags = require('shared/ReactFeatureFlags');
+        ReactFeatureFlags.debugRenderPhaseSideEffectsForStrictMode = false;
+        ReactDOM = require('react-dom');
+      });
     });
 
     it('flushes pending interactive work before extracting event handler', () => {

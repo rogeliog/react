@@ -14,10 +14,10 @@ let ReactNoop;
 
 describe('ReactFragment', () => {
   beforeEach(function() {
-    jest.resetModules();
-
-    React = require('react');
-    ReactNoop = require('react-noop-renderer');
+    jest.withResetModules(() => {
+      React = require('react');
+      ReactNoop = require('react-noop-renderer');
+    });
   });
 
   function span(prop) {

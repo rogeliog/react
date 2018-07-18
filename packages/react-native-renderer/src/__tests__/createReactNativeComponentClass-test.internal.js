@@ -16,12 +16,12 @@ let ReactNative;
 
 describe('createReactNativeComponentClass', () => {
   beforeEach(() => {
-    jest.resetModules();
-
-    createReactNativeComponentClass = require('ReactNativeViewConfigRegistry')
-      .register;
-    React = require('react');
-    ReactNative = require('react-native-renderer');
+    jest.withResetModules(() => {
+      createReactNativeComponentClass = require('ReactNativeViewConfigRegistry')
+        .register;
+      React = require('react');
+      ReactNative = require('react-native-renderer');
+    });
   });
 
   it('should register viewConfigs', () => {

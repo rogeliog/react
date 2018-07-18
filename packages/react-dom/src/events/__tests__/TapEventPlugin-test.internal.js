@@ -52,14 +52,14 @@ function touchEnd(element, touchEventInit) {
 
 describe('TapEventPlugin', () => {
   beforeEach(() => {
-    jest.resetModules();
     LISTENER.mockClear();
-
-    EventPluginHub = require('events/EventPluginHub');
-    React = require('react');
-    ReactDOM = require('react-dom');
-    ReactTestUtils = require('react-dom/test-utils');
-    TapEventPlugin = require('react-dom/src/events/TapEventPlugin').default;
+    jest.withResetModules(() => {
+      EventPluginHub = require('events/EventPluginHub');
+      React = require('react');
+      ReactDOM = require('react-dom');
+      ReactTestUtils = require('react-dom/test-utils');
+      TapEventPlugin = require('react-dom/src/events/TapEventPlugin').default;
+    });
 
     container = document.createElement('div');
     document.body.appendChild(container);

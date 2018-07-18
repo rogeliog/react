@@ -61,16 +61,16 @@ const fakeRequireNativeComponent = (uiViewClassName, validAttributes) => {
 };
 
 beforeEach(() => {
-  jest.resetModules();
-
-  PropTypes = require('prop-types');
-  RCTEventEmitter = require('RCTEventEmitter');
-  React = require('react');
-  ReactNative = require('react-native-renderer');
-  ResponderEventPlugin = require('events/ResponderEventPlugin').default;
-  UIManager = require('UIManager');
-  createReactNativeComponentClass = require('ReactNativeViewConfigRegistry')
-    .register;
+  jest.withResetModules(() => {
+    PropTypes = require('prop-types');
+    RCTEventEmitter = require('RCTEventEmitter');
+    React = require('react');
+    ReactNative = require('react-native-renderer');
+    ResponderEventPlugin = require('events/ResponderEventPlugin').default;
+    UIManager = require('UIManager');
+    createReactNativeComponentClass = require('ReactNativeViewConfigRegistry')
+      .register;
+  });
 });
 
 it('fails if unknown/unsupported event types are dispatched', () => {
