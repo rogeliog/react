@@ -9,20 +9,26 @@
 
 'use strict';
 
-let ReactFeatureFlags = require('shared/ReactFeatureFlags');
 
-let React = require('react');
+let ReactFeatureFlags;
+let React;
 let ReactNoop;
 let gen;
 
+jest.withResetModules(() => {
+  ReactFeatureFlags = require('shared/ReactFeatureFlags');
+  React = require('react');
+});
+
 describe('ReactNewContext', () => {
   beforeEach(() => {
-    jest.resetModules();
-    ReactFeatureFlags = require('shared/ReactFeatureFlags');
-    ReactFeatureFlags.debugRenderPhaseSideEffectsForStrictMode = false;
-    React = require('react');
-    ReactNoop = require('react-noop-renderer');
-    gen = require('random-seed');
+    jest.withResetModules(() => {
+      ReactFeatureFlags = require('shared/ReactFeatureFlags');
+      ReactFeatureFlags.debugRenderPhaseSideEffectsForStrictMode = false;
+      React = require('react');
+      ReactNoop = require('react-noop-renderer');
+      gen = require('random-seed');
+    });
   });
 
   // function div(...children) {
@@ -744,10 +750,11 @@ describe('ReactNewContext', () => {
     ReactNoop.flushThrough(['Foo']);
 
     // Get a new copy of ReactNoop
-    jest.resetModules();
-    ReactFeatureFlags = require('shared/ReactFeatureFlags');
-    React = require('react');
-    ReactNoop = require('react-noop-renderer');
+    jest.withResetModules(() => {
+      ReactFeatureFlags = require('shared/ReactFeatureFlags');
+      React = require('react');
+      ReactNoop = require('react-noop-renderer');
+    });
 
     // Render the provider again using a different renderer
     ReactNoop.render(<App value={1} />);

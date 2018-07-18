@@ -110,18 +110,19 @@ describe('ReactDebugFiberPerf', () => {
   }
 
   beforeEach(() => {
-    jest.resetModules();
     resetFlamechart();
     global.performance = createUserTimingPolyfill();
 
-    require('shared/ReactFeatureFlags').enableUserTimingAPI = true;
-    require('shared/ReactFeatureFlags').enableProfilerTimer = false;
-    require('shared/ReactFeatureFlags').replayFailedUnitOfWorkWithInvokeGuardedCallback = false;
+    jest.withResetModules(() => {
+      require('shared/ReactFeatureFlags').enableUserTimingAPI = true;
+      require('shared/ReactFeatureFlags').enableProfilerTimer = false;
+      require('shared/ReactFeatureFlags').replayFailedUnitOfWorkWithInvokeGuardedCallback = false;
 
-    // Import after the polyfill is set up:
-    React = require('react');
-    ReactNoop = require('react-noop-renderer');
-    PropTypes = require('prop-types');
+      // Import after the polyfill is set up:
+      React = require('react');
+      ReactNoop = require('react-noop-renderer');
+      PropTypes = require('prop-types');
+    });
   });
 
   afterEach(() => {

@@ -15,10 +15,10 @@ let ReactNoopPersistent;
 
 describe('ReactPersistent', () => {
   beforeEach(() => {
-    jest.resetModules();
-
-    React = require('react');
-    ReactNoopPersistent = require('react-noop-renderer/persistent');
+    // jest.withResetModules(() => {
+      React = require('react');
+      ReactNoopPersistent = require('react-noop-renderer/persistent');
+    // });
   });
 
   // Inlined from shared folder so we can run this test on a bundle.

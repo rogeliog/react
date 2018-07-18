@@ -16,11 +16,12 @@ let ReactNoop;
 
 describe('ReactIncrementalScheduling', () => {
   beforeEach(() => {
-    jest.resetModules();
-    ReactFeatureFlags = require('shared/ReactFeatureFlags');
-    ReactFeatureFlags.debugRenderPhaseSideEffectsForStrictMode = false;
-    React = require('react');
-    ReactNoop = require('react-noop-renderer');
+    jest.withResetModules(() => {
+      ReactFeatureFlags = require('shared/ReactFeatureFlags');
+      ReactFeatureFlags.debugRenderPhaseSideEffectsForStrictMode = false;
+      React = require('react');
+      ReactNoop = require('react-noop-renderer');
+    });
   });
 
   function span(prop) {
