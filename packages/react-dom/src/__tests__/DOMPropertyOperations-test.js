@@ -14,9 +14,10 @@ describe('DOMPropertyOperations', () => {
   let ReactDOM;
 
   beforeEach(() => {
-    jest.resetModules();
-    React = require('react');
-    ReactDOM = require('react-dom');
+    jest.withResetModules(() => {
+      React = require('react');
+      ReactDOM = require('react-dom');
+    });
   });
 
   describe('setValueForProperty', () => {

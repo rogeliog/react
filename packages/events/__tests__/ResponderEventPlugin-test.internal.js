@@ -391,10 +391,14 @@ function deleteAllListeners(instance) {
 
 describe('ResponderEventPlugin', () => {
   beforeEach(() => {
-    jest.resetModules();
+    let ReactDOM;
+    let ReactDOMUnstableNativeDependencies;
 
-    const ReactDOM = require('react-dom');
-    const ReactDOMUnstableNativeDependencies = require('react-dom/unstable-native-dependencies');
+    jest.withResetModules(() => {
+      ReactDOM = require('react-dom');
+      ReactDOMUnstableNativeDependencies = require('react-dom/unstable-native-dependencies');
+    });
+
     EventPluginHub =
       ReactDOM.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED
         .EventPluginHub;

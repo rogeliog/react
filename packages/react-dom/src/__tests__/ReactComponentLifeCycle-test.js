@@ -87,11 +87,12 @@ function getLifeCycleState(instance): ComponentLifeCycle {
  */
 describe('ReactComponentLifeCycle', () => {
   beforeEach(() => {
-    jest.resetModules();
-    React = require('react');
-    ReactDOM = require('react-dom');
-    ReactTestUtils = require('react-dom/test-utils');
-    PropTypes = require('prop-types');
+    jest.withResetModules(() => {
+      React = require('react');
+      ReactDOM = require('react-dom');
+      ReactTestUtils = require('react-dom/test-utils');
+      PropTypes = require('prop-types');
+    });
   });
 
   it('should not reuse an instance when it has been unmounted', () => {

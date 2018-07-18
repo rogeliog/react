@@ -16,12 +16,14 @@ let ReactDOMServerBrowser;
 
 describe('ReactServerRenderingBrowser', () => {
   beforeEach(() => {
-    jest.resetModules();
-    React = require('react');
-    ReactDOMServer = require('react-dom/server');
+    // jest.withResetModules(() => {
+      React = require('react');
+      ReactDOMServer = require('react-dom/server');
+    // });
     // For extra isolation between what would be two bundles on npm
-    jest.resetModuleRegistry();
-    ReactDOMServerBrowser = require('react-dom/server.browser');
+    // jest.withResetModules(() => {
+      ReactDOMServerBrowser = require('react-dom/server.browser');
+    // });
   });
 
   it('provides the same top-level API as react-dom/server', () => {

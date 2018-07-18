@@ -17,10 +17,10 @@ let ReactTestUtils;
 
 describe('ReactChildReconciler', () => {
   beforeEach(() => {
-    jest.resetModules();
-
-    React = require('react');
-    ReactTestUtils = require('react-dom/test-utils');
+    jest.withResetModules(() => {
+      React = require('react');
+      ReactTestUtils = require('react-dom/test-utils');
+    });
   });
 
   function createIterable(array) {

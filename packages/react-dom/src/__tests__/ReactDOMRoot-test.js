@@ -9,10 +9,11 @@
 
 'use strict';
 
-let React = require('react');
-let ReactDOM = require('react-dom');
-let ReactDOMServer = require('react-dom/server');
-let AsyncMode = React.unstable_AsyncMode;
+
+let React;
+let ReactDOM;
+let ReactDOMServer;
+let AsyncMode;
 
 describe('ReactDOMRoot', () => {
   let container;
@@ -59,11 +60,12 @@ describe('ReactDOMRoot', () => {
       }
     };
 
-    jest.resetModules();
-    React = require('react');
-    ReactDOM = require('react-dom');
-    ReactDOMServer = require('react-dom/server');
-    AsyncMode = React.unstable_AsyncMode;
+    jest.withResetModules(() => {
+      React = require('react');
+      ReactDOM = require('react-dom');
+      ReactDOMServer = require('react-dom/server');
+      AsyncMode = React.unstable_AsyncMode;
+    });
   });
 
   it('renders children', () => {

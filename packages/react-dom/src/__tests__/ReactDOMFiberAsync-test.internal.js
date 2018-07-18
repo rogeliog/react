@@ -44,9 +44,11 @@ describe('ReactDOMFiberAsync', () => {
         postMessageCallback(postMessageEvent);
       }
     };
-    jest.resetModules();
+
     container = document.createElement('div');
-    ReactDOM = require('react-dom');
+    jest.withResetModules(() => {
+      ReactDOM = require('react-dom');
+    });
   });
 
   it('renders synchronously by default', () => {
@@ -62,10 +64,11 @@ describe('ReactDOMFiberAsync', () => {
 
   describe('with feature flag disabled', () => {
     beforeEach(() => {
-      jest.resetModules();
-      ReactFeatureFlags = require('shared/ReactFeatureFlags');
       container = document.createElement('div');
-      ReactDOM = require('react-dom');
+      jest.withResetModules(() => {
+        ReactFeatureFlags = require('shared/ReactFeatureFlags');
+        ReactDOM = require('react-dom');
+      });
     });
 
     it('renders synchronously', () => {
@@ -89,11 +92,12 @@ describe('ReactDOMFiberAsync', () => {
 
   describe('with feature flag enabled', () => {
     beforeEach(() => {
-      jest.resetModules();
-      ReactFeatureFlags = require('shared/ReactFeatureFlags');
       container = document.createElement('div');
-      ReactFeatureFlags.debugRenderPhaseSideEffectsForStrictMode = false;
-      ReactDOM = require('react-dom');
+      jest.withResetModules(() => {
+        ReactFeatureFlags = require('shared/ReactFeatureFlags');
+        ReactFeatureFlags.debugRenderPhaseSideEffectsForStrictMode = false;
+        ReactDOM = require('react-dom');
+      });
     });
 
     it('createRoot makes the entire tree async', () => {

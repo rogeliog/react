@@ -9,13 +9,19 @@
 
 'use strict';
 
-let React = require('react');
-const ReactTestUtils = require('react-dom/test-utils');
+let React;
+let ReactTestUtils;
+
+jest.withResetModules(() => {
+  React = require('react');
+  ReactTestUtils = require('react-dom/test-utils');
+});
 
 class TextWithStringRef extends React.Component {
   render() {
-    jest.resetModules();
-    React = require('react');
+    jest.withResetModules(() => {
+      React = require('react');
+    });
     return <span ref="foo">Hello world!</span>;
   }
 }

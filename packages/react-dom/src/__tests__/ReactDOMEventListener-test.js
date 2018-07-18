@@ -14,9 +14,10 @@ describe('ReactDOMEventListener', () => {
   let ReactDOM;
 
   beforeEach(() => {
-    jest.resetModules();
-    React = require('react');
-    ReactDOM = require('react-dom');
+    jest.withResetModules(() => {
+      React = require('react');
+      ReactDOM = require('react-dom');
+    });
   });
 
   it('should dispatch events from outside React tree', () => {

@@ -11,26 +11,44 @@
 
 'use strict';
 
-const React = require('react');
-const ReactDOM = require('react-dom');
-const ReactTestUtils = require('react-dom/test-utils');
+let React = require('react');
 
-// Isolate test renderer.
-jest.resetModules();
-const ReactTestRenderer = require('react-test-renderer');
+let ReactDOM;
+let ReactTestUtils;
+let ReactTestRenderer;
+let ReactART;
+let ARTSVGMode;
+let ARTCurrentMode;
+let Circle;
+let Rectangle;
+let Wedge;
+let ReactNoop;
+
+
+
+jest.withResetModules(() => {
+  ReactDOM = require('react-dom');
+  ReactTestUtils = require('react-dom/test-utils');
+});
+
+jest.withResetModules(() => {
+  ReactTestRenderer = require('react-test-renderer');
+});
 
 // Isolate ART renderer.
-jest.resetModules();
-const ReactART = require('react-art');
-const ARTSVGMode = require('art/modes/svg');
-const ARTCurrentMode = require('art/modes/current');
-const Circle = require('react-art/Circle');
-const Rectangle = require('react-art/Rectangle');
-const Wedge = require('react-art/Wedge');
+jest.withResetModules(() => {
+  ReactART = require('react-art');
+  ARTSVGMode = require('art/modes/svg');
+  ARTCurrentMode = require('art/modes/current');
+  Circle = require('react-art/Circle');
+  Rectangle = require('react-art/Rectangle');
+  Wedge = require('react-art/Wedge');
+});
 
 // Isolate the noop renderer
-jest.resetModules();
-const ReactNoop = require('react-noop-renderer');
+jest.withResetModules(() => {
+  ReactNoop = require('react-noop-renderer');
+});
 
 let Group;
 let Shape;

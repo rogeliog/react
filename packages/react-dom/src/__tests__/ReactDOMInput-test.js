@@ -24,8 +24,6 @@ describe('ReactDOMInput', () => {
   }
 
   beforeEach(() => {
-    jest.resetModules();
-
     setUntrackedValue = Object.getOwnPropertyDescriptor(
       HTMLInputElement.prototype,
       'value',
@@ -35,9 +33,11 @@ describe('ReactDOMInput', () => {
       'checked',
     ).set;
 
-    React = require('react');
-    ReactDOM = require('react-dom');
-    ReactDOMServer = require('react-dom/server');
+    jest.withResetModules(() => {
+      React = require('react');
+      ReactDOM = require('react-dom');
+      ReactDOMServer = require('react-dom/server');
+    });
 
     container = document.createElement('div');
     document.body.appendChild(container);

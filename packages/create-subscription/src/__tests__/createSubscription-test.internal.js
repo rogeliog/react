@@ -18,15 +18,16 @@ let ReplaySubject;
 
 describe('createSubscription', () => {
   beforeEach(() => {
-    jest.resetModules();
-    createSubscription = require('create-subscription').createSubscription;
-    ReactFeatureFlags = require('shared/ReactFeatureFlags');
-    ReactFeatureFlags.debugRenderPhaseSideEffectsForStrictMode = false;
-    React = require('react');
-    ReactNoop = require('react-noop-renderer');
+    jest.withResetModules(() => {
+      createSubscription = require('create-subscription').createSubscription;
+      ReactFeatureFlags = require('shared/ReactFeatureFlags');
+      ReactFeatureFlags.debugRenderPhaseSideEffectsForStrictMode = false;
+      React = require('react');
+      ReactNoop = require('react-noop-renderer');
 
-    BehaviorSubject = require('rxjs/BehaviorSubject').BehaviorSubject;
-    ReplaySubject = require('rxjs/ReplaySubject').ReplaySubject;
+      BehaviorSubject = require('rxjs/BehaviorSubject').BehaviorSubject;
+      ReplaySubject = require('rxjs/ReplaySubject').ReplaySubject;
+    });
   });
 
   function createBehaviorSubject(initialValue) {

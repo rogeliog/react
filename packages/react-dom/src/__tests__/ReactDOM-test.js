@@ -16,11 +16,12 @@ let ReactTestUtils;
 
 describe('ReactDOM', () => {
   beforeEach(() => {
-    jest.resetModules();
-    React = require('react');
-    ReactDOM = require('react-dom');
-    ReactDOMServer = require('react-dom/server');
-    ReactTestUtils = require('react-dom/test-utils');
+    jest.withResetModules(() => {
+      React = require('react');
+      ReactDOM = require('react-dom');
+      ReactDOMServer = require('react-dom/server');
+      ReactTestUtils = require('react-dom/test-utils');
+    });
   });
 
   // TODO: uncomment this test once we can run in phantom, which
@@ -366,9 +367,10 @@ describe('ReactDOM', () => {
         onCommitFiberUnmount: function() {},
         supportsFiber: true,
       };
-      jest.resetModules();
-      React = require('react');
-      ReactDOM = require('react-dom');
+      jest.withResetModules(() => {
+        React = require('react');
+        ReactDOM = require('react-dom');
+      });
       class Component extends React.Component {
         render() {
           return <div />;
@@ -447,11 +449,12 @@ describe('ReactDOM', () => {
     const previousRAF = global.requestAnimationFrame;
     try {
       delete global.requestAnimationFrame;
-      jest.resetModules();
-      expect(() => require('react-dom')).toWarnDev(
-        "This browser doesn't support requestAnimationFrame.",
-        {withoutStack: true},
-      );
+      jest.withResetModules(() => {
+        expect(() => require('react-dom')).toWarnDev(
+          "This browser doesn't support requestAnimationFrame.",
+          {withoutStack: true},
+        );
+      });
     } finally {
       global.requestAnimationFrame = previousRAF;
     }

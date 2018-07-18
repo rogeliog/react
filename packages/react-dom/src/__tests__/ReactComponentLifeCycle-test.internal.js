@@ -15,17 +15,13 @@ let ReactFeatureFlags;
 
 describe('ReactComponentLifeCycle', () => {
   beforeEach(() => {
-    jest.resetModules();
+    jest.withResetModules(() => {
+      ReactFeatureFlags = require('shared/ReactFeatureFlags');
+      ReactFeatureFlags.warnAboutDeprecatedLifecycles = true;
 
-    ReactFeatureFlags = require('shared/ReactFeatureFlags');
-    ReactFeatureFlags.warnAboutDeprecatedLifecycles = true;
-
-    React = require('react');
-    ReactDOM = require('react-dom');
-  });
-
-  afterEach(() => {
-    jest.resetModules();
+      React = require('react');
+      ReactDOM = require('react-dom');
+    });
   });
 
   // TODO (RFC #6) Merge this back into ReactComponentLifeCycles-test once

@@ -53,17 +53,18 @@ function registerSimpleTestHandler() {
 
 describe('ReactBrowserEventEmitter', () => {
   beforeEach(() => {
-    jest.resetModules();
-    LISTENER.mockClear();
 
-    // TODO: can we express this test with only public API?
-    EventPluginHub = require('events/EventPluginHub');
-    EventPluginRegistry = require('events/EventPluginRegistry');
-    React = require('react');
-    ReactDOM = require('react-dom');
-    ReactDOMComponentTree = require('../client/ReactDOMComponentTree');
-    ReactBrowserEventEmitter = require('../events/ReactBrowserEventEmitter');
-    ReactTestUtils = require('react-dom/test-utils');
+    LISTENER.mockClear();
+    jest.withResetModules(() => {
+      // TODO: can we express this test with only public API?
+      EventPluginHub = require('events/EventPluginHub');
+      EventPluginRegistry = require('events/EventPluginRegistry');
+      React = require('react');
+      ReactDOM = require('react-dom');
+      ReactDOMComponentTree = require('../client/ReactDOMComponentTree');
+      ReactBrowserEventEmitter = require('../events/ReactBrowserEventEmitter');
+      ReactTestUtils = require('react-dom/test-utils');
+    });
 
     container = document.createElement('div');
     document.body.appendChild(container);

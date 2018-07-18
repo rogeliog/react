@@ -20,11 +20,12 @@ describe('ReactDOMComponent', () => {
   }
 
   beforeEach(() => {
-    jest.resetModules();
-    React = require('react');
-    ReactDOM = require('react-dom');
-    ReactDOMServer = require('react-dom/server');
-    ReactTestUtils = require('react-dom/test-utils');
+    jest.withResetModules(() => {
+      React = require('react');
+      ReactDOM = require('react-dom');
+      ReactDOMServer = require('react-dom/server');
+      ReactTestUtils = require('react-dom/test-utils');
+    });
   });
 
   describe('updateDOM', () => {
