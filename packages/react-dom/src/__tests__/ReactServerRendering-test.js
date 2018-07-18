@@ -20,10 +20,11 @@ function normalizeCodeLocInfo(str) {
 
 describe('ReactDOMServer', () => {
   beforeEach(() => {
-    jest.resetModules();
-    React = require('react');
-    PropTypes = require('prop-types');
-    ReactDOMServer = require('react-dom/server');
+    jest.withResetModules(() => {
+      React = require('react');
+      PropTypes = require('prop-types');
+      ReactDOMServer = require('react-dom/server');
+    });
   });
 
   describe('renderToString', () => {
@@ -661,9 +662,10 @@ describe('ReactDOMServer', () => {
       // what happens when they *don't* exist. It's useless otherwise.
       throw new Error('Expected this test to run in a Node environment.');
     }
-    jest.resetModules();
     expect(() => {
-      require('react-dom');
+      jest.withResetModules(() => {
+        require('react-dom');
+      });
     }).not.toThrow();
   });
 

@@ -17,10 +17,11 @@ let ReactDOMServer;
 // If a test only needs ReactDOMServer, put it in ReactServerRendering-test instead.
 describe('ReactDOMServerHydration', () => {
   beforeEach(() => {
-    jest.resetModules();
-    React = require('react');
-    ReactDOM = require('react-dom');
-    ReactDOMServer = require('react-dom/server');
+    jest.withResetModules(() => {
+      React = require('react');
+      ReactDOM = require('react-dom');
+      ReactDOMServer = require('react-dom/server');
+    });
   });
 
   it('should have the correct mounting behavior (old hydrate API)', () => {

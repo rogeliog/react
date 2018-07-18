@@ -9,8 +9,14 @@
 
 'use strict';
 
-const React = require('react');
-let ReactDOM = require('react-dom');
+let React;
+let ReactDOM;
+
+jest.withResetModules(() => {
+  React = require('react');
+  ReactDOM = require('react-dom');
+});
+
 let ReactFeatureFlags;
 
 const setUntrackedChecked = Object.getOwnPropertyDescriptor(
@@ -56,7 +62,6 @@ describe('ChangeEventPlugin', () => {
         postMessageCallback(postMessageEvent);
       }
     };
-    jest.resetModules();
     container = document.createElement('div');
     document.body.appendChild(container);
   });
@@ -473,10 +478,11 @@ describe('ChangeEventPlugin', () => {
 
   describe('async mode', () => {
     beforeEach(() => {
-      jest.resetModules();
-      ReactFeatureFlags = require('shared/ReactFeatureFlags');
-      ReactFeatureFlags.debugRenderPhaseSideEffectsForStrictMode = false;
-      ReactDOM = require('react-dom');
+      jest.withResetModules(() => {
+        ReactFeatureFlags = require('shared/ReactFeatureFlags');
+        ReactFeatureFlags.debugRenderPhaseSideEffectsForStrictMode = false;
+        ReactDOM = require('react-dom');
+      });
     });
     it('text input', () => {
       const root = ReactDOM.unstable_createRoot(container);

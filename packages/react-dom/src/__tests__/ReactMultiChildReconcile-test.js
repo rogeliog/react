@@ -265,10 +265,6 @@ function testPropsSequence(sequence) {
 }
 
 describe('ReactMultiChildReconcile', () => {
-  beforeEach(() => {
-    jest.resetModules();
-  });
-
   it('should reset internal state if removed then readded in an array', () => {
     // Test basics.
     const props = {

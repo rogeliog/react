@@ -16,11 +16,16 @@ describe('BeforeInputEventPlugin', () => {
   let container;
 
   function loadReactDOM(envSimulator) {
-    jest.resetModules();
     if (envSimulator) {
       envSimulator();
     }
-    return require('react-dom');
+    
+    let _ReactDOM;
+    jest.withResetModules(() => {
+      _ReactDOM = require('react-dom');
+    });
+
+    return _ReactDOM;
   }
 
   function simulateIE11() {

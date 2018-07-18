@@ -95,10 +95,11 @@ describe('reactiverefs', () => {
   let container;
 
   beforeEach(() => {
-    jest.resetModules();
-    React = require('react');
-    ReactDOM = require('react-dom');
-    ReactTestUtils = require('react-dom/test-utils');
+    jest.withResetModules(() => {
+      React = require('react');
+      ReactDOM = require('react-dom');
+      ReactTestUtils = require('react-dom/test-utils');
+    });
   });
 
   afterEach(() => {
@@ -177,10 +178,11 @@ describe('factory components', () => {
 describe('ref swapping', () => {
   let RefHopsAround;
   beforeEach(() => {
-    jest.resetModules();
-    React = require('react');
-    ReactDOM = require('react-dom');
-    ReactTestUtils = require('react-dom/test-utils');
+    jest.withResetModules(() => {
+      React = require('react');
+      ReactDOM = require('react-dom');
+      ReactTestUtils = require('react-dom/test-utils');
+    });
 
     RefHopsAround = class extends React.Component {
       state = {count: 0};
@@ -430,8 +432,10 @@ describe('strings refs across renderers', () => {
     class Indirection extends React.Component {
       componentDidUpdate() {
         // One ref is being rendered later using another renderer copy.
-        jest.resetModules();
-        const AnotherCopyOfReactDOM = require('react-dom');
+        let AnotherCopyOfReactDOM;
+        jest.withResetModules(() => {
+          AnotherCopyOfReactDOM = require('react-dom');
+        });
         AnotherCopyOfReactDOM.render(this.props.child2, div2);
       }
       render() {

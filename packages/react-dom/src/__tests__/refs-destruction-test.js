@@ -17,11 +17,11 @@ let TestComponent;
 
 describe('refs-destruction', () => {
   beforeEach(() => {
-    jest.resetModules();
-
-    React = require('react');
-    ReactDOM = require('react-dom');
-    ReactTestUtils = require('react-dom/test-utils');
+    jest.withResetModules(() => {
+      React = require('react');
+      ReactDOM = require('react-dom');
+      ReactTestUtils = require('react-dom/test-utils');
+    });
 
     class ClassComponent extends React.Component {
       render() {
