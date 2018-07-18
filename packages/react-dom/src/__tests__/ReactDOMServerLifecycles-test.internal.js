@@ -15,15 +15,13 @@ let ReactDOMServer;
 
 describe('ReactDOMServerLifecycles', () => {
   beforeEach(() => {
-    ReactFeatureFlags = require('shared/ReactFeatureFlags');
-    ReactFeatureFlags.warnAboutDeprecatedLifecycles = true;
+    jest.withResetModules(() => {
+      ReactFeatureFlags = require('shared/ReactFeatureFlags');
+      ReactFeatureFlags.warnAboutDeprecatedLifecycles = true;
 
-    React = require('react');
-    ReactDOMServer = require('react-dom/server');
-  });
-
-  afterEach(() => {
-    jest.resetModules();
+      React = require('react');
+      ReactDOMServer = require('react-dom/server');
+    });
   });
 
   it('should not invoke cWM if static gDSFP is present', () => {

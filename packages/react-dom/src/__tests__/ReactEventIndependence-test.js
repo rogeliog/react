@@ -14,10 +14,10 @@ let ReactDOM;
 
 describe('ReactEventIndependence', () => {
   beforeEach(() => {
-    jest.resetModules();
-
-    React = require('react');
-    ReactDOM = require('react-dom');
+    jest.withResetModules(() => {
+      React = require('react');
+      ReactDOM = require('react-dom');
+    });
   });
 
   it('does not crash with other react inside', () => {

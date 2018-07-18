@@ -18,11 +18,11 @@ let log;
 
 describe('ReactEmptyComponent', () => {
   beforeEach(() => {
-    jest.resetModules();
-
-    React = require('react');
-    ReactDOM = require('react-dom');
-    ReactTestUtils = require('react-dom/test-utils');
+    jest.withResetModules(() => {
+      React = require('react');
+      ReactDOM = require('react-dom');
+      ReactTestUtils = require('react-dom/test-utils');
+    });
 
     log = jest.fn();
 
