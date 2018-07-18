@@ -93,8 +93,9 @@ describe('ReactScheduler', () => {
     global.Date.now = function() {
       return currentTime;
     };
-    jest.resetModules();
-    ReactScheduler = require('react-scheduler');
+    jest.withResetModules(() => {
+      ReactScheduler = require('react-scheduler');
+    });
   });
 
   describe('scheduleWork', () => {

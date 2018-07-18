@@ -10,15 +10,20 @@
 
 'use strict';
 
-const ReactFeatureFlags = require('shared/ReactFeatureFlags');
-ReactFeatureFlags.replayFailedUnitOfWorkWithInvokeGuardedCallback = false;
-const React = require('react');
-const ReactTestRenderer = require('react-test-renderer');
 const prettyFormat = require('pretty-format');
 
-// Isolate noop renderer
-jest.resetModules();
-const ReactNoop = require('react-noop-renderer');
+let ReactFeatureFlags;
+let React;
+let ReactTestRenderer;
+let ReactNoop;
+
+jest.withResetModules(() => {
+  ReactFeatureFlags = require('shared/ReactFeatureFlags');
+  ReactFeatureFlags.replayFailedUnitOfWorkWithInvokeGuardedCallback = false;
+  React = require('react');
+  ReactTestRenderer = require('react-test-renderer');
+  ReactNoop = require('react-noop-renderer');
+});
 
 // Kind of hacky, but we nullify all the instances to test the tree structure
 // with jasmine's deep equality function, and test the instances separate. We

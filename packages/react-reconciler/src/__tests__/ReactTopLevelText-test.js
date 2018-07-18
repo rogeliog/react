@@ -17,9 +17,10 @@ let ReactNoop;
 // probably move to one of the other test files once it is official.
 describe('ReactTopLevelText', () => {
   beforeEach(() => {
-    jest.resetModules();
-    React = require('react');
-    ReactNoop = require('react-noop-renderer');
+    jest.withResetModules(() => {
+      React = require('react');
+      ReactNoop = require('react-noop-renderer');
+    });
   });
 
   it('should render a component returning strings directly from render', () => {

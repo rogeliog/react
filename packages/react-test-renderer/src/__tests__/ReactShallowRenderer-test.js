@@ -16,11 +16,11 @@ let React;
 
 describe('ReactShallowRenderer', () => {
   beforeEach(() => {
-    jest.resetModules();
-
-    createRenderer = require('react-test-renderer/shallow').createRenderer;
-    PropTypes = require('prop-types');
-    React = require('react');
+    jest.withResetModules(() => {
+      createRenderer = require('react-test-renderer/shallow').createRenderer;
+      PropTypes = require('prop-types');
+      React = require('react');
+    });
   });
 
   it('should call all of the legacy lifecycle hooks', () => {

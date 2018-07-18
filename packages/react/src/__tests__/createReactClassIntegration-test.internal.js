@@ -15,23 +15,26 @@ let createReactClass;
 
 describe('create-react-class-integration', () => {
   beforeEach(() => {
-    jest.resetModules();
+    jest.withResetModules(() => {
+      ReactFeatureFlags = require('shared/ReactFeatureFlags');
+      ReactFeatureFlags.warnAboutDeprecatedLifecycles = true;
 
-    ReactFeatureFlags = require('shared/ReactFeatureFlags');
-    ReactFeatureFlags.warnAboutDeprecatedLifecycles = true;
-
-    React = require('react');
-    createReactClass = require('create-react-class/factory')(
-      React.Component,
-      React.isValidElement,
-      new React.Component().updater,
-    );
+      React = require('react');
+      createReactClass = require('create-react-class/factory')(
+        React.Component,
+        React.isValidElement,
+        new React.Component().updater,
+      );
+    });
   });
 
   // TODO (RFC #6) Merge this back into createReactClassIntegration-test once
   // the 'warnAboutDeprecatedLifecycles' feature flag has been removed.
   it('isMounted works', () => {
-    const ReactDOM = require('react-dom');
+    let ReactDOM;
+    jest.withResetModules(() => {
+      ReactDOM = require('react-dom');
+    });
 
     const ops = [];
     let instance;

@@ -15,9 +15,10 @@ let ReactTestRenderer;
 
 describe('ReactTestRendererAsync', () => {
   beforeEach(() => {
-    jest.resetModules();
-    React = require('react');
-    ReactTestRenderer = require('react-test-renderer');
+    jest.withResetModules(() => {
+      React = require('react');
+      ReactTestRenderer = require('react-test-renderer');
+    });
   });
 
   it('flushAll flushes all work', () => {
