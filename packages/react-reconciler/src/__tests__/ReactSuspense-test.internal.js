@@ -13,18 +13,20 @@ let textResourceShouldFail;
 
 describe('ReactSuspense', () => {
   beforeEach(() => {
-    jest.resetModules();
-    ReactFeatureFlags = require('shared/ReactFeatureFlags');
-    ReactFeatureFlags.debugRenderPhaseSideEffectsForStrictMode = false;
-    ReactFeatureFlags.replayFailedUnitOfWorkWithInvokeGuardedCallback = false;
-    ReactFeatureFlags.enableSuspense = true;
-    React = require('react');
-    Fragment = React.Fragment;
-    ReactNoop = require('react-noop-renderer');
-    SimpleCacheProvider = require('simple-cache-provider');
-    Placeholder = React.Placeholder;
-    StrictMode = React.StrictMode;
-    AsyncMode = React.unstable_AsyncMode;
+    jest.clearAllTimers();
+    jest.withResetModules(() => {
+      ReactFeatureFlags = require('shared/ReactFeatureFlags');
+      ReactFeatureFlags.debugRenderPhaseSideEffectsForStrictMode = false;
+      ReactFeatureFlags.replayFailedUnitOfWorkWithInvokeGuardedCallback = false;
+      ReactFeatureFlags.enableSuspense = true;
+      React = require('react');
+      Fragment = React.Fragment;
+      ReactNoop = require('react-noop-renderer');
+      SimpleCacheProvider = require('simple-cache-provider');
+      Placeholder = React.Placeholder;
+      StrictMode = React.StrictMode;
+      AsyncMode = React.unstable_AsyncMode;
+    });
 
     function invalidateCache() {
       cache = SimpleCacheProvider.createCache(invalidateCache);

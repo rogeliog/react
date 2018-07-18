@@ -16,12 +16,13 @@ let ReactNoop;
 
 describe('ReactIncrementalErrorLogging', () => {
   beforeEach(() => {
-    jest.resetModules();
-    ReactFeatureFlags = require('shared/ReactFeatureFlags');
-    ReactFeatureFlags.debugRenderPhaseSideEffectsForStrictMode = false;
-    ReactFeatureFlags.replayFailedUnitOfWorkWithInvokeGuardedCallback = false;
-    React = require('react');
-    ReactNoop = require('react-noop-renderer');
+    jest.withResetModules(() => {
+      ReactFeatureFlags = require('shared/ReactFeatureFlags');
+      ReactFeatureFlags.debugRenderPhaseSideEffectsForStrictMode = false;
+      ReactFeatureFlags.replayFailedUnitOfWorkWithInvokeGuardedCallback = false;
+      React = require('react');
+      ReactNoop = require('react-noop-renderer');
+    });
   });
 
   it('should log errors that occur during the begin phase', () => {
@@ -101,11 +102,15 @@ describe('ReactIncrementalErrorLogging', () => {
   });
 
   it('should ignore errors thrown in log method to prevent cycle', () => {
-    jest.resetModules();
     jest.mock('../ReactFiberErrorLogger');
+
     try {
-      React = require('react');
-      ReactNoop = require('react-noop-renderer');
+      let ReactFiberErrorLogger;
+      jest.withResetModules(() => {
+        ReactFiberErrorLogger = require('../ReactFiberErrorLogger');
+        React = require('react');
+        ReactNoop = require('react-noop-renderer');        
+      });
 
       // TODO Update this test to use toWarnDev() matcher if possible
       spyOnDevAndProd(console, 'error');
@@ -118,7 +123,6 @@ describe('ReactIncrementalErrorLogging', () => {
 
       const logCapturedErrorCalls = [];
 
-      const ReactFiberErrorLogger = require('../ReactFiberErrorLogger');
       ReactFiberErrorLogger.logCapturedError.mockImplementation(
         capturedError => {
           logCapturedErrorCalls.push(capturedError);
